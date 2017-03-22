@@ -4,5 +4,5 @@
 #### Members:
 
 - Junaid Tinwala (blueJupiter16)
-- ]Saksham Rastogi (sak3004)
+- Saksham Rastogi (sak3004)
 - Samarjoy Pandit (samarjoypandit)
