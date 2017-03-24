@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -36,12 +35,12 @@ public class Machine{
     private final String[] Alphabet = {
         "Tea","Coffee","Cold Drink",
         "Rs 5","Rs 10","Rs 50",
-        "Yes","No"
+        "Yes","No","Input Money"
     };
     
     private HashMap<String,Integer> map = new HashMap<>();
     
-    private Button bTea,bCoffee,bDrink,b5,b10,b50,bYes,bNo;
+    private Button bTea,bCoffee,bDrink,b5,b10,b50,bYes,bNo,bInputMoney;
     private TextField Display;
     private Panel inputPanel;
     private JFrame frame;
@@ -49,10 +48,13 @@ public class Machine{
     
     boolean buttonPressed = false;
 
-    public Machine() {
+    public Machine() throws InterruptedException {
         
-        int money,i = 0;
+        int money = 0,i = 0;
         ArrayList change;
+        
+        String moneyDisplay="";
+        String c = "";
         
         
         intializeFrame();
@@ -74,7 +76,7 @@ public class Machine{
             q1.setName(Alphabet[2]);
         }
         else{
-           invalidInputState();
+           invalidInputState(1);
         }
         
         
@@ -82,32 +84,64 @@ public class Machine{
         
         displayOutput(q1.getOutput(),1);
         while(true){
-            money = Integer.parseInt(inputString.substring(3));
+            try{
+            money = money + Integer.parseInt(inputString.substring(3));
+            }
+            catch(Exception e){
+                this.invalidInputState(1);
+            }
             if(money < map.get(q1.getName())){
                 /*---------State 2--------------*/
-                q2.setOutput(outputArray[12]);
-                displayOutput(q2.getOutput(),1);
+                moneyDisplay = money + "  ";
+                displayOutput(moneyDisplay,0);
+                this.buttonPressed = false;
+                sleep();
+                    if(inputString.equals(Alphabet[8])){
+                
+                        q2.setOutput(outputArray[12]);
+                        displayOutput(q2.getOutput(),1);
+                        invalidInputState(2);
+                    }
             }
             else if(money > map.get(q1.getName())){
+                
                 /*-----------State 3-------------*/
                 change = calculateChange(money,map.get(q1.getName()));
                 while(i < change.size()){
-                    q3.setOutput("Change: " + String.valueOf(change.get(i)));
-                    displayOutput(q3.getOutput(),0);
+                    
+                    c = c + " " +String.valueOf(change.get(i));
+                   
                     i++;
                 }
+                 q3.setOutput("Change: " + c);
+                 displayOutput(q3.getOutput(),0);
                 break;
                 
+            }else{
+                moneyDisplay = money + "  ";
+                displayOutput(moneyDisplay,0);
+                this.buttonPressed = false;
+                sleep();
+                    if(inputString.equals(Alphabet[8])){
+                
+                       break;
+                    }
             }
+            
+                
         }
         
         /*---------------State 4---------------*/
         displayOutput(q4.getOutput(),1);
         i = 0;
+        sleep();
         if(inputString.equals(Alphabet[7])){
+            String s = "Money Back: " ;
             change = calculateChange(map.get(q1.getName()),0);
                 while(i < change.size()){
-                    q3.setOutput("Money Back: " + String.valueOf(change.get(i)));
+                    
+                    s = s + " "+ String.valueOf(change.get(i));
+                    q3.setOutput(s);
                     displayOutput(q3.getOutput(),0);
                     i++;
                 }
@@ -117,21 +151,10 @@ public class Machine{
         
         /*---------------State 5 ----------------*/
         q5.setOutput(q1.getName());
+        Thread.sleep(1000);
         displayOutput("Enjoy your " + q5.getOutput(),0);
         System.exit(0);
-        
-        
-        
-        
-            
-        
-        
-        
-       
-        
-        
-        
-        
+      
         
     }
     
@@ -169,8 +192,10 @@ public class Machine{
         return change;
     }
     
-    private void invalidInputState(){
+    private void invalidInputState(int mode){ // mode = 1 for invalid input, mode = 2 for insufficient money    
         
+        if(mode == 2)
+            q6.setOutput(outputArray[12]);
          Display.setText(q6.getOutput());
             try {
                 Thread.sleep(2000);
@@ -259,6 +284,9 @@ public class Machine{
         bNo = new Button(Alphabet[7]);
         bNo.addActionListener(new Listener(bNo.getLabel()));
         
+        bInputMoney = new Button(Alphabet[8]);
+        bInputMoney.addActionListener(new Listener(bInputMoney.getLabel()));
+        
         inputPanel.add(bTea);
         inputPanel.add(bCoffee);
         inputPanel.add(bDrink);
@@ -268,7 +296,7 @@ public class Machine{
         inputPanel.add(b50);
         
         inputPanel.add(bYes);
-        inputPanel.add(new Panel());
+        inputPanel.add(bInputMoney);
         inputPanel.add(bNo);
         
     }
