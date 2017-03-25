@@ -58,7 +58,7 @@ public class InfixToPostFix {
         while(!operationStack.isEmpty()){        // if no character left to parse, simply pop all elements and append to string
             postfixString.append(operationStack.pop());
         }
-        System.out.println(postfixString);
+        System.out.println("POSTFIX: "+postfixString);
         return postfixString.toString();
     }
 
