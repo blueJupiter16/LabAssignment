@@ -25,8 +25,8 @@ public class Main {
         InfixToPostFix.infixToPost(regex);
         
         NFAState startstate = BuildNFA.postFixToNFA(InfixToPostFix.infixToPost(regex));
-        Boolean matches = Match.match(startstate, string);
-        if(matches)
+        boolean isMatch = Match.match(startstate, string);
+        if(isMatch)
             System.out.println("MATCH");
         else
             System.out.println("DOESN'T MATCH");
