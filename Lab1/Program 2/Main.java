@@ -24,5 +24,13 @@ public class Main {
         String string=inp.nextLine();
         InfixToPostFix.infixToPost(regex);
         
+        NFAState startstate = BuildNFA.postFixToNFA(InfixToPostFix.infixToPost(regex));
+        Boolean matches = Match.match(startstate, string);
+        if(matches)
+            System.out.println("MATCH");
+        else
+            System.out.println("DOESN'T MATCH");
+        
+        
     }
 }
