@@ -10,6 +10,7 @@
 ## String Matching Implmentation
 
 **Input**: A pattern and Strings
+
 **Output**: Indices where the pattern starts in the string
 
 - 2 implementations of the program: Console and GUI
