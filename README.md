@@ -6,8 +6,15 @@
 - Junaid Tinwala (blueJupiter16)
 - Saksham Rastogi (sak3004)
 - Samarjoy Pandit (samarjoypandit)
+---
+## String Matching Implmentation
 
+**Input**: A pattern and Strings
+**Output**: Indices where the pattern starts in the string
 
+- 2 implementations of the program: Console and GUI
+- Knuth-Morris-Pratt algorithm used to construct state table and nfa
+---
 ## Moore and Mealy Implementation
 
 ###   Moore Machine
