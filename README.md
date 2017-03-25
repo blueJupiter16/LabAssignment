@@ -7,7 +7,7 @@
 - Saksham Rastogi (sak3004)
 - Samarjoy Pandit (samarjoypandit)
 ---
-## String Matching Implmentation
+## String Matching Implementation
 
 **Input**: A pattern and Strings
 
@@ -15,6 +15,8 @@
 
 - 2 implementations of the program: Console and GUI
 - Knuth-Morris-Pratt algorithm used to construct state table and nfa
+
+![Alt Text](https://github.com/samarjoypandit/CSESemester06/blob/master/TOCLab/GUIStringMatch.JPG)
 ---
 ## Moore and Mealy Implementation
 
