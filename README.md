@@ -18,6 +18,20 @@
 
 ![Alt Text](https://github.com/samarjoypandit/CSESemester06/blob/master/TOCLab/GUIStringMatch.JPG)
 ---
+
+---
+## Thomson NFA
+
+**Input**: A regular expression and string
+
+**Output**: Tells whether the string is a part of language or not
+
+- Shunting Yard algorithm is used to convert regular expression from infix to postfix
+- Builds NFA from the postfix expression
+- Supports . (Concatenation), |(Union) and * (Star) operations only 
+
+---
+
 ## Moore and Mealy Implementation
 
 ###   Moore Machine
